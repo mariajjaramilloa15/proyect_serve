@@ -1,24 +1,26 @@
 ###
-POST http://localhost:3977/api/v1/user/userModel/ HTTP/1.1
+POST http://localhost:3977/api/v1/users HTTP/1.1
 Content-Type: application/json
+
 {
   "name": "Maria José",
   "lastname": "Jaramillo A",
   "email": "mariaj.jaramilloa@autonoma.edu.co",
   "password": "hola123",
-  "active": "yes"
+  "active": true
 }
 ###
-GET http://localhost:3977/api/v1/user/userModel/ HTTP/1.1
+GET http://localhost:3977/api/v1/user HTTP/1.1
 
 ###
-GET http://localhost:3977/api/v1/user/userModel/ HTTP/1.1
+GET http://localhost:3977/api/v1/user HTTP/1.1
 
 ###
-PUT http://localhost:3977/api/v1/user/userModel/ HTTP/1.1
+PUT http://localhost:3977/api/v1/user HTTP/1.1
 Content-Type: application/json
+
 {
   "password": "AABFBBGB",
 }
 ###
-DELETE http://localhost:3977/api/v1/user/userModel/ HTTP/1.1
+DELETE http://localhost:3977/api/v1/user HTTP/1.1
