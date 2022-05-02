@@ -1,7 +1,15 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const app = require("./app");
 const PORT_SERVER = process.env.PORT || 3977;
 const { API_VERSION, IP_SERVER, PORT_DB } = require("./config");
+const {
+    logErrors,
+    errorHandler,
+    BoomerrorHandler,
+  } = require('./src/handlers/errors.handler');
+  const routerApi = require('./src/routes');
+
 
 mongoose.connect(
   `mongodb://${IP_SERVER}:${PORT_DB}/proyect_db`,
@@ -20,3 +28,12 @@ mongoose.connect(
     }
   }
 );
+
+
+/* Respuestas a solicitudes http en formato JSON */
+app.use(express.json());
+app.use(logErrors);
+app.use(errorHandler);
+app.use(BoomerrorHandler);
+/* Permitir hacer el llamado de los request */
+routerApi(app);
