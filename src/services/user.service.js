@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const UserRouter = require("../routes/user.router");
 const Boom = require("@hapi/boom");
 
 class UserService {
@@ -39,7 +40,7 @@ class UserService {
 
   async removeUser() {
     const user_remove = UserModel.findById({ _id: UserId });
-    if (!superheroId) throw Boom.notFound("No se encontro el Usuario");
+    if (!UserId) throw Boom.notFound("No se encontro el Usuario");
     UserModel.deleteOne(user_remove);
     return UserModel.deleteOne(user_remove);
   }
