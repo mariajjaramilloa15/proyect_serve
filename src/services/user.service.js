@@ -1,11 +1,9 @@
 const UserModel = require("../models/user.model");
-const UserRouter = require("../routes/user.router");
 const Boom = require("@hapi/boom");
 
 class UserService {
-  //Promesas y funciones asincronicas
-  //Una funcion asincronica devuelve una promesa
-  //Js es un lenguaje ejecuta un hilo -> solo hace una cosa a la vez
+  //Promesas y funciones asincronica
+
   async createUser(user) {
     user.save();
     return user;
@@ -24,23 +22,28 @@ class UserService {
     });
   }
 
-  async showUser() {
-    return UserModel.findById({ _id: UserId });
+  async showUser(userId) {
+    return UserModel.findById({ _id: userId }).then(
+      (UserFind) => {
+        if (!UserFind) throw Boom.notFound('No se econtró la persona');
+        return UserFind;
+      }
+    );
   }
 
-  async editUser(UserId, name, lastname, email, password, active) {
+  async editUser(userId, name, lastname, email, password, active) {
     return UserModel.findById({ _id: UserId }).then((UserFind) => {
       if (!UserFind) throw Boom.notFound("No se encontro el Usuario");
       return UserModel.updateOne(
-        { UserId },
+        { userId },
         { name, lastname, email, password, active }
       );
     });
   }
 
-  async removeUser() {
-    const user_remove = UserModel.findById({ _id: UserId });
-    if (!UserId) throw Boom.notFound("No se encontro el Usuario");
+  async removeUser(userId) {
+    const user_remove = UserModel.findById({ _id: userId });
+    if (!userId) throw Boom.notFound("No se encontro el Usuario");
     UserModel.deleteOne(user_remove);
     return UserModel.deleteOne(user_remove);
   }
